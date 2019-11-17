@@ -19,7 +19,7 @@ interface Func {
 ## Utilisation
 ### Require
 ```TypeScript
-const lib:Func = require('./fonction')
+const lib:Func = require('./lib-perso')
 ```
 
 ### sum, prod, p
