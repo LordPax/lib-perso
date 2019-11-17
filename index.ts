@@ -4,12 +4,12 @@ interface Func {
     p:(nb:number, pu?:number, acc?:number, res?:number) => number
     sfor:(compt:number, f:(i:number, r:any) => any, acc?:number, r?:any) => any
     rand:(min:number, max:number) => number
-    match:(test:any, acc?:any) => any
+    match:(test?:any, acc?:any) => any
     timeTester:(callback:()=>void) => number
+    str_rand:(taille:number, f:(n1:number, n2:number)=>number, char?:string) => string
 }
 
-const lib:Func = require('./fonction')
-// const match:(test:any, acc?:any) => any = lib.match
+const lib:Func = require('./lib-perso')
 
 const nb1:number[] = [1, 2, 3, 4, 5]
 const nb2:number[] = [5, 4, 3, 2, 1]
@@ -20,9 +20,17 @@ console.log(lib.rand(0, 5))
 
 console.log('\n ====================================\n')
 
-lib.sfor(5, (i, r) => {
-    console.log('salut ' + i)
-})
+lib.sfor(5, (i, r) => console.log('salut ' + i))
+
+const tab:number[] = lib.sfor(10, (i, r) => {
+    return [...r, i]
+}, 0, [])
+
+console.log(tab)
+
+console.log('\n ====================================\n')
+
+console.log('str rand : ' + lib.str_rand(10, lib.rand))
 
 console.log('\n ====================================\n')
 
@@ -48,6 +56,17 @@ const test:number|string = lib.match(7)
 console.log(test)
 
 console.log('\n ====================================\n')
+
+const nb:number = 6
+const test2:string = lib.match(nb)
+.if(nb < 5, () => 'nb < 5')
+.if(nb === 5, () => 'nb = 5')
+.case(6, () => 'nb = 6')
+.default(() => 'default')
+
+console.log(test2)
+
+/*console.log('\n ====================================\n')
 
 const timeIf:number = lib.timeTester(() => {
     const nb:number = 3
@@ -97,6 +116,30 @@ const timeSwitch:number = lib.timeTester(() => {
         case 4 :
             t_test = 'timeSwitch test4'
             break
+        case 5 :
+            t_test = 'timeSwitch test5'
+            break
+        case 6 :
+            t_test = 'timeSwitch test6'
+            break
+        case 7 :
+            t_test = 'timeSwitch test7'
+            break
+        case 8 :
+            t_test = 'timeSwitch test8'
+            break
+        case 9 :
+            t_test = 'timeSwitch test9'
+            break
+        case 10 :
+            t_test = 'timeSwitch test10'
+            break
+        case 11 :
+            t_test = 'timeSwitch test11'
+            break
+        case 12 :
+            t_test = 'timeSwitch test12'
+            break
         default :
             t_test = 'timeSwitch default'
             break
@@ -124,4 +167,4 @@ const timeMatch:number = lib.timeTester(() => {
 
 console.log('timeIf : ' + timeIf + ' ms')
 console.log('timeSwitch : ' + timeSwitch + ' ms')
-console.log('timeMatch : ' + timeMatch + ' ms')
+console.log('timeMatch : ' + timeMatch + ' ms')*/

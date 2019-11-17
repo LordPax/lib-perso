@@ -1,7 +1,7 @@
-interface Mat {
-    case:(val:any, act:()=>any) => any
-    default:(act:()=>any) => any
-}
+// interface Mat {
+//     case:(val:any, act:()=>any) => any
+//     default:(act:()=>any) => any
+// }
 
 const sum = (i:number, n:number, callback:(i:number) => number, res:number = 0):number => {
     const r:number = res + callback(i)
@@ -31,9 +31,17 @@ const p = (nb:number, pu:number = 2, acc:number = 0, res:number = 1):number => {
 
 const rand = (min:number, max:number):number => Math.floor(Math.random() * (max - min + 1) + min)
 
-const match = (test:any, acc:any = null):any => {
+const str_rand = (taille:number, f:(n1:number, n2:number)=>number, char:string = ''):string => {
+    const char_rand:number = f(0, 1) === 1 ? f(65, 90) : f(97, 122)
+    const tmp:string = String.fromCharCode(char_rand)
+
+    return taille > 0 ? str_rand(taille - 1, f, char + tmp) : char
+}
+
+const match = (test:any = null, acc:any = null):any => {
     return {
         case : (val:any, act:()=>any):any => match(test, val === test ? act() : acc),
+        if : (cond:boolean, act:()=>any) => match(test, cond ? act() : acc),
         default : (act:()=>any):any => acc === null ? act() : acc
     }
 }
@@ -52,5 +60,6 @@ module.exports = {
     sfor : sfor,
     rand : rand,
     match : match,
-    timeTester : timeTester
+    timeTester : timeTester,
+    str_rand : str_rand
 }
