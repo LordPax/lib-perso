@@ -1,3 +1,8 @@
+interface Mat {
+    case:(val:any, act:()=>any) => any
+    default:(act:()=>any) => any
+}
+
 const sum = (i:number, n:number, callback:(i:number) => number, res:number = 0):number => {
     const r:number = res + callback(i)
     return i < n ? sum(i + 1, n, callback, r) : r
@@ -26,10 +31,26 @@ const p = (nb:number, pu:number = 2, acc:number = 0, res:number = 1):number => {
 
 const rand = (min:number, max:number):number => Math.floor(Math.random() * (max - min + 1) + min)
 
+const match = (test:any, acc:any = null):any => {
+    return {
+        case : (val:any, act:()=>any):any => match(test, val === test ? act() : acc),
+        default : (act:()=>any):any => acc === null ? act() : acc
+    }
+}
+
+const timeTester = (callback:()=>void):number => {
+    const time:Date = new Date()
+    const t1:number = time.getTime()
+    callback()
+    return time.getTime() - t1
+}
+
 module.exports = {
     sum : sum,
     prod : prod,
     p : p,
     sfor : sfor,
-    rand : rand
+    rand : rand,
+    match : match,
+    timeTester : timeTester
 }
