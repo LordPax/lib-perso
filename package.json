@@ -1,12 +1,13 @@
 {
   "name": "lib-perso",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "",
   "main": "build/main.js",
   "types": "build/main.d.ts",
   "scripts": {
     "build": "./compileTs.sh",
-    "test": "mocha"
+    "test": "mocha",
+    "tags": "ctags -R --exclude=node_modules --exclude=.git --exclude=build --exclude=README.md ."
   },
   "repository": {
       "type": "git",

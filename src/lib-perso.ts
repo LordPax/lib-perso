@@ -75,3 +75,16 @@ export const constant = (object:any):any => {
     }
     return object
 }
+
+export const in_array = (search:any, array:any[]):number|boolean => {
+    const find:any[] = array.filter(elem => elem === search)
+    return find.length > 0 ? find.length : false
+}
+
+export const escapeHtml = (text:string):string => {
+    const map:any = {
+        '<': '&lt;',
+        '>': '&gt;',
+    }
+    return text.replace(/[<>]/g, m => map[m])
+}
